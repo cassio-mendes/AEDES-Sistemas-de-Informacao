@@ -3,7 +3,7 @@ package aula02;
 public class Lista {
 
     private static String[] lista;
-    private static int ultimo;
+    private static int ultimo; //Índice do primeiro espaço vazio
 
     public static void criaListaVazia(int tamanho) {
         lista = new String[tamanho];
@@ -42,14 +42,17 @@ public class Lista {
                 for (int i = 0; i < listaAuxiliar.length; i++) {
                     if(i < indice) { //Ainda não chegou no indice
                         listaAuxiliar[i] = lista[i]; //Apenas copia o item atual
+
                     } else { //i >= indice
                         if(i == indice) { //Achou o item a ser trocado
                             itemAuxiliar = lista[i];
                             listaAuxiliar[i] = elemento; //Troca os valores
+
                         } else { //i > indice --> Corrige os espaços adiante
-                            listaAuxiliar[i + 1] = itemAuxiliar; //Troca os valores
-                            if(i + 1 < lista.length) { //Se ainda não acabaram os elementos da lista
-                                itemAuxiliar = lista[i + 1]; //Atualiza o itemAuxiliar com o próximo valor
+                            listaAuxiliar[i] = itemAuxiliar; //Troca os valores
+
+                            if(i < lista.length) { //Se ainda não acabaram os elementos da lista
+                                itemAuxiliar = lista[i]; //Atualiza o itemAuxiliar com o próximo valor
                             } else {
                                 break; //Acabaram os elementos da lista
                             }
@@ -69,19 +72,20 @@ public class Lista {
             return null;
         }
 
+        //Registra o valor removido e atualiza o índice ultimo
         String removido = lista[0];
         ultimo --;
 
-        //Reorganizing the array's elements
+        //Reorganizando os elementos da lista
         for (int i = 0; i < lista.length - 1; i++) {
             lista[i] = lista[i + 1];
         }
 
-        if(lista[lista.length - 1] != null) {
+        if(lista[lista.length - 1] != null) { //Tornando o último elemento nulo
             lista[lista.length - 1] = null;
         }
 
-        return removido;
+        return removido; //Retornando o elemento removido
     }
 
     //Apaga um elemento numa posição qualquer
@@ -144,10 +148,6 @@ public class Lista {
 
         retorno += "]\n";
         System.out.println(retorno);
-    }
-
-    public static int getTamanho() {
-        return lista.length;
     }
 
 }

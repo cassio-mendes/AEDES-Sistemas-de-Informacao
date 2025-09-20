@@ -27,8 +27,14 @@ public class ListaCompras {
         Lista.inserirEm("Manga", 3);
         Lista.imprimeLista();
 
+        System.out.println("Inserindo Laranja no índice 1:");
+        Lista.inserirEm("Laranja", 1);
+        Lista.imprimeLista();
+
         System.out.println("Removendo o item no índice 1: " + Lista.retirarEm(1));
         Lista.imprimeLista();
+
+        System.out.println("Pesquisando o índice do elemento Abacaxi: " + Lista.pesquisarPosicao("Abacaxi"));
     }
 
 }
