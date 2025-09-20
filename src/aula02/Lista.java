@@ -37,26 +37,23 @@ public class Lista {
                 }
             } else { //O índice já existe na lista atual (só precisa deslocar tudo 1 espaço adiante)
                 listaAuxiliar = new String[lista.length + 1];
-                boolean terminou = false;
+                String itemAuxiliar = "";
 
                 for (int i = 0; i < listaAuxiliar.length; i++) {
-                    if(i != indice) { //Ainda não chegou no indice
-                        listaAuxiliar[i] = lista[i];
-                    } else { //i == indice
-                        String itemAuxiliar = lista[i];
-                        listaAuxiliar[i] = elemento; //Troca os valores
-
-                        for (int j = i + 1; j < listaAuxiliar.length; j++) { //Passa pelos valores subsequentes
-                            listaAuxiliar[j] = itemAuxiliar; //Troca os valores
-
-                            if(j < lista.length) { //Se ainda não acabaram os elementos da lista
-                                itemAuxiliar = lista[j];
+                    if(i < indice) { //Ainda não chegou no indice
+                        listaAuxiliar[i] = lista[i]; //Apenas copia o item atual
+                    } else { //i >= indice
+                        if(i == indice) { //Achou o item a ser trocado
+                            itemAuxiliar = lista[i];
+                            listaAuxiliar[i] = elemento; //Troca os valores
+                        } else { //i > indice --> Corrige os espaços adiante
+                            listaAuxiliar[i + 1] = itemAuxiliar; //Troca os valores
+                            if(i + 1 < lista.length) { //Se ainda não acabaram os elementos da lista
+                                itemAuxiliar = lista[i + 1]; //Atualiza o itemAuxiliar com o próximo valor
                             } else {
-                                terminou = true; //Acabaram os elementos da lista
+                                break; //Acabaram os elementos da lista
                             }
                         }
-
-                        if(terminou) { break; } //Termina a execução do metodo
                     }
                 }
             }
@@ -65,7 +62,7 @@ public class Lista {
         }
     }
 
-    //Deletes the first element
+    //Apaga o primeiro elemento
     public static String retirar() {
         if(lista == null || ultimo == 0) {
             System.out.println("Erro: lista não existe ou está vazia :(");
@@ -89,11 +86,20 @@ public class Lista {
 
     //Apaga um elemento numa posição qualquer
     public static String retirarEm(int indice) {
+        if(lista == null || ultimo == 0) {
+            System.out.println("Erro: lista não existe ou está vazia :(");
+            return null;
+        }
+
         String elemento = lista[indice];
         lista[indice] = null;
 
+        String[] listaAuxiliar = new String[lista.length - 1];
+        for (int i = 0; i < listaAuxiliar.length; i++) {
+            listaAuxiliar[i] = i < indice ? lista[i] : lista[i + 1];
+        }
 
-        
+        lista = listaAuxiliar;
         return elemento;
     }
 

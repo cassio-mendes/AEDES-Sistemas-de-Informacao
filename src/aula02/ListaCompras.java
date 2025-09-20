@@ -21,9 +21,13 @@ public class ListaCompras {
         System.out.println("Pesquisando Banana: " + Lista.pesquisar("Banana"));
         System.out.println("Pesquisando Abacaxi: " + Lista.pesquisar("Abacaxi"));
         System.out.println("Pesquisando Aba: " + Lista.pesquisar("Aba"));
+        Lista.imprimeLista();
 
         System.out.println("Inserindo Manga no índice 3:");
         Lista.inserirEm("Manga", 3);
+        Lista.imprimeLista();
+
+        System.out.println("Removendo o item no índice 1: " + Lista.retirarEm(1));
         Lista.imprimeLista();
     }
 
