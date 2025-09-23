@@ -115,7 +115,7 @@ public class Lista {
 
         for (String s : lista) { //(int i = 0; i < lista.length; i++)
             if(s != null && (s.equals(elemento) || s.contains(elemento))) {
-                return s;
+                return elemento + " está na lista";
             }
         }
 
@@ -138,6 +138,11 @@ public class Lista {
     }
 
     public static void imprimeLista() {
+        if(lista == null) {
+            System.out.println("Erro: lista não existe :(");
+            return;
+        }
+
         String retorno = "Lista[";
 
         for(int i = 0; i < lista.length; i++) {
