@@ -10,23 +10,25 @@ public class Ordenacao {
             auxiliar[i] = ordenado[i];
         }
 
-        for (int i = ordenado.length; i < auxiliar.length; i++) {
-            auxiliar[i] = desordenado[i - ordenado.length];
-        }
+        //Ordenando o auxiliar de acordo com os valores do vetor desordenado
+        boolean inseriu = false;
+        int indice = ordenado.length;
 
-        //Ordenando o vetor completo
-        double numAuxiliar;
-        for (int i = 0; i < auxiliar.length - 1; i++) {
-            for (int j = i; j < auxiliar.length; j++) {
-                if(auxiliar[j] < auxiliar[i]) {
-                    numAuxiliar = auxiliar[j];
-                    auxiliar[j] = auxiliar[i];
-                    auxiliar[i] = numAuxiliar;
+        for (int i = 0; i < desordenado.length; i++) {
+            for (int j = indice; j > 0; j--) {
+                if(desordenado[i] < auxiliar[j - 1]) {
+                    auxiliar[j] = auxiliar[j - 1];
+                    auxiliar[j - 1] = desordenado[i];
+                    inseriu = true;
                 }
             }
+
+            if(!inseriu) { auxiliar[indice] = desordenado[i]; }
+            inseriu = false;
+            indice++;
         }
 
-        return auxiliar; //Retornando o vetor ordenado
+        return auxiliar; //Retornando o vetor ordenado com todos os valores
     }
 
 }
