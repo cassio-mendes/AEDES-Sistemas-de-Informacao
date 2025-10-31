@@ -8,7 +8,7 @@ public class Main {
         Random gerador = new Random();
 
         final int TAMANHO = 5000;
-        Lista.criaListaVazia(TAMANHO);
+        Lista.criaListaVazia(TAMANHO + 4);
 
         for (int i = 0; i < TAMANHO; i++) {
             Lista.inserir(gerador.nextInt(1, TAMANHO + 1));
