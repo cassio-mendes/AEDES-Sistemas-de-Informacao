@@ -1,16 +1,35 @@
 package aula10;
 
-public class Main { //Metodo de ordenação de arrays(vetores): Selection Sort
+import java.util.Random;
+
+public class Main {
 
     public static void main(String[] args) {
-        int[] vetor = {12, 7, 4, 16, 61, 25, 116, 7};
-        final int NUMERO = 16;
+        int[] vetor = new int[5000];
+        for (int i = 0; i < vetor.length; i++) {
+            vetor[i] = new Random().nextInt(1000);
+        }
+
+        final int NUMERO = 7;
 
         imprimirVetor(vetor);
-        mergeSort(vetor);
+
+        long inicio = System.currentTimeMillis();
+        mergeSort(vetor);       //Mais rápido
+        //insertionSort(vetor); //Mediano
+        //selectionSort(vetor); //Mais lento
+        long fim = System.currentTimeMillis();
+
         imprimirVetor(vetor);
-        //System.out.println("Índice do número " + NUMERO + ": " + binarySearch(vetor, NUMERO));
-        //System.out.println(NUMERO + "! == " + fatorialRecursivo(NUMERO));
+        System.out.printf("Tempo para ordenar: %s milissegundos\n\n", (fim - inicio));
+
+        inicio = System.currentTimeMillis();
+        int indiceEncontrado = binarySearch(vetor, NUMERO);
+        fim = System.currentTimeMillis();
+
+        System.out.println("Índice do número " + NUMERO + ": " + indiceEncontrado);
+        System.out.printf("Tempo para encontrar o número: %s milissegundos\n\n", (fim - inicio));
+        System.out.println(NUMERO + "! == " + fatorialRecursivo(NUMERO));
     }
 
     static void selectionSort(int[] vetor) {
@@ -110,15 +129,28 @@ public class Main { //Metodo de ordenação de arrays(vetores): Selection Sort
     }
 
     static void merge(int[] esquerda, int[] direita, int[] vetor) {
-        int j = 0, k = 0;
+        int i = 0, j = 0, k = 0;
 
-        for (int i = 0; i < vetor.length; i++) {
+        while(j < esquerda.length && k < direita.length) {
             if(esquerda[j] < direita[k]) {
                 vetor[i] = esquerda[j];
                 j++;
             } else {
                 vetor[i] = direita[k];
                 k++;
+            }
+            i++;
+        }
+
+        if(j < esquerda.length) {
+            for (int i2 = j; i2 < esquerda.length; i2++) {
+                vetor[i] = esquerda[i2];
+                i++;
+            }
+        } else if(k < direita.length) {
+            for (int i3 = k; i3 < direita.length; i3++) {
+                vetor[i] = direita[i3];
+                i++;
             }
         }
     }
