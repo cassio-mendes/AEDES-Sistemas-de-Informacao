@@ -10,7 +10,7 @@ public class Main {
             vetor[i] = new Random().nextInt(1000);
         }
 
-        final int NUMERO = 7;
+        final int NUMERO = 9;
 
         imprimirVetor(vetor);
 
@@ -24,7 +24,7 @@ public class Main {
         System.out.printf("Tempo para ordenar: %s milissegundos\n\n", (fim - inicio));
 
         inicio = System.currentTimeMillis();
-        int indiceEncontrado = binarySearch(vetor, NUMERO);
+        int indiceEncontrado = binarySearch(vetor, NUMERO, 0, vetor.length - 1) ;
         fim = System.currentTimeMillis();
 
         System.out.println("Índice do número " + NUMERO + ": " + indiceEncontrado);
@@ -67,23 +67,23 @@ public class Main {
         }
     }
 
-    static int binarySearch(int[] vetor, int numeroAlvo) {
-        int primeiro = 0, ultimo = vetor.length - 1, indiceAtual;
+    static int binarySearch(int[] vetor, int numeroAlvo, int primeiro, int ultimo) {
+        int indiceAtual = (primeiro + ultimo) / 2;
 
-        while(ultimo >= primeiro) {
-            indiceAtual = (primeiro + ultimo) / 2;
-
-            if(vetor[indiceAtual] == numeroAlvo)
-                return indiceAtual;
-
-            if(numeroAlvo > vetor[indiceAtual]) {
-                primeiro = indiceAtual + 1;
-            } else {
-                ultimo = indiceAtual - 1;
-            }
+        if(ultimo < primeiro) {
+            return -1;
         }
 
-        return -1;
+        if(vetor[indiceAtual] == numeroAlvo)
+            return indiceAtual;
+
+        if(numeroAlvo > vetor[indiceAtual]) {
+            primeiro = indiceAtual + 1;
+        } else {
+            ultimo = indiceAtual - 1;
+        }
+
+        return binarySearch(vetor, numeroAlvo, primeiro, ultimo);
     }
 
     static void imprimirVetor(int[] vetor) {
