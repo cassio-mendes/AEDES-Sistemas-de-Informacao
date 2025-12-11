@@ -27,7 +27,7 @@ public class PilhaEncadeada {
         Object item = this.topo.item; //Item a ser retornado
 
         //Se a pilha só tem um elemento, ela fica vazia, senão o topo aponta para a próxima célula
-        this.topo = this.tamanho == 1 ? null : this.topo.proximo;
+        this.topo = this.topo.proximo;
 
         this.tamanho--; //Atualiza o tamanho em -1
         return item; //Retorna o item removido
@@ -36,8 +36,7 @@ public class PilhaEncadeada {
     public void imprimir() {
         Celula atual = this.topo; //Referencia a primeira célula da pilha
 
-        for(int i = 0; i < this.tamanho; i++) { //Itera pela pilha inteira
-
+        while(atual != null) { //Itera pela pilha inteira
             System.out.println(atual.item); //Imprime o toString() do item na célula atual
             atual = atual.proximo; //Atualiza o valor da célula atual com a referência da próxima célula da lista
         }
